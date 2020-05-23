@@ -50,11 +50,16 @@ export const gissaDjuretSlice = createSlice({
     },
     setQuery: (state, action) => {
       console.log(state, action);
-      //const { answer, query } = action.payload;
-      //return { ...state };
+      const { answer, query } = action.payload;
+      const betterDatabase = updateDatabase(
+        state.initialDatabase,
+        answer,
+        query
+      );
       return {
         ...state,
-        database: state.initialDatabase,
+        initialDatabase: betterDatabase,
+        database: betterDatabase,
         message: "Bättre lycka nästa gång!",
         ask: false,
         answer: null,
@@ -62,6 +67,10 @@ export const gissaDjuretSlice = createSlice({
     },
   },
 });
+
+function updateDatabase(database, answer, query) {
+  return database;
+}
 
 export default configureStore({
   reducer: gissaDjuretSlice.reducer,
