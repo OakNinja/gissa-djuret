@@ -1,16 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { gissaDjuretSlice } from "../app/store";
 
 export const selectQuery = (state) => state.database.query;
-export const selectAnswer = (state) => state.database.answer;
+export const selectGuess = (state) => state.database.guess;
 export const selectMessage = (state) => state.message;
+export const selectAsk = (state) => state.ask;
+export const selectAnswer = (state) => state.answer;
 
 export function GissaDjuret() {
   const dispatch = useDispatch();
   const query = useSelector(selectQuery);
-  const answer = useSelector(selectAnswer);
+  const guess = useSelector(selectGuess);
   const message = useSelector(selectMessage);
+  const answer = useSelector(selectAnswer);
+  console.log(query);
+  console.log(guess);
+
+  const ask = useSelector(selectAsk);
+
+  const [newAnswer, setNewAnswer] = useState("");
+  const [newQuery, setNewQuery] = useState("");
+
+  if (ask) {
+    if (!answer) {
+      return (
+        <div>
+          <div>Vad tänkte du på för djur?</div>
+          <div>
+            <input
+              value={newAnswer}
+              onChange={(e) => setNewAnswer(e.target.value)}
+            ></input>
+            <button
+              onClick={() => {
+                dispatch(gissaDjuretSlice.actions.setAnswer(newAnswer));
+              }}
+            >
+              Svara
+            </button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          Hur skulle du ställa en fråga där svaret är "ja" för en {answer} men
+          "nej" för en {guess}?
+          <input
+            value={answer}
+            onChange={(e) => setNewQuery(e.target.value)}
+          ></input>
+          <button
+            onClick={() => {
+              dispatch(gissaDjuretSlice.actions.setQuery(answer, newQuery));
+            }}
+          >
+            Svara
+          </button>
+        </div>
+      );
+    }
+  }
 
   if (message) {
     return (
@@ -43,17 +94,15 @@ export function GissaDjuret() {
     );
   }
 
-  if (answer) {
+  if (guess) {
     return (
       <div>
-        <div>Skulle det kunna vara en {answer}?</div>
+        <div>Skulle det kunna vara en {guess}?</div>
         <div>
-          <button
-            onClick={() => dispatch(gissaDjuretSlice.actions.answerYes())}
-          >
+          <button onClick={() => dispatch(gissaDjuretSlice.actions.guessYes())}>
             Ja
           </button>
-          <button onClick={() => dispatch(gissaDjuretSlice.actions.answerNo())}>
+          <button onClick={() => dispatch(gissaDjuretSlice.actions.guessNo())}>
             Nej
           </button>
         </div>

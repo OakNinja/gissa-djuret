@@ -3,15 +3,15 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 const initialDatabase = {
   query: "Bor den i vattnet?",
   yes: {
-    answer: "Gädda",
+    guess: "Gädda",
   },
   no: {
     query: "Har den horn?",
     yes: {
-      answer: "Älg",
+      guess: "Älg",
     },
     no: {
-      answer: "Gris",
+      guess: "Gris",
     },
   },
 };
@@ -22,6 +22,8 @@ export const gissaDjuretSlice = createSlice({
     initialDatabase: initialDatabase,
     database: initialDatabase,
     message: "",
+    ask: false,
+    answer: "",
   },
   reducers: {
     playAgain: (state) => {
@@ -37,11 +39,14 @@ export const gissaDjuretSlice = createSlice({
     no: (state) => {
       return { ...state, database: state.database.no };
     },
-    answerYes: (state) => {
+    guessYes: (state) => {
       return { ...state, message: "Wohoo!" };
     },
-    answerNo: (state) => {
-      return { ...state, message: "You suck!" };
+    guessNo: (state) => {
+      return { ...state, ask: true };
+    },
+    setAnswer: (state, answer) => {
+      return { ...state, answer: answer };
     },
   },
 });
