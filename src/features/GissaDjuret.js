@@ -48,12 +48,17 @@ export function GissaDjuret() {
           Hur skulle du ställa en fråga där svaret är "ja" för en {answer} men
           "nej" för en {guess}?
           <input
-            value={answer}
+            value={newQuery}
             onChange={(e) => setNewQuery(e.target.value)}
           ></input>
           <button
             onClick={() => {
-              dispatch(gissaDjuretSlice.actions.setQuery(answer, newQuery));
+              dispatch(
+                gissaDjuretSlice.actions.setQuery({
+                  answer: answer,
+                  query: newQuery,
+                })
+              );
             }}
           >
             Svara

@@ -45,8 +45,20 @@ export const gissaDjuretSlice = createSlice({
     guessNo: (state) => {
       return { ...state, ask: true };
     },
-    setAnswer: (state, answer) => {
-      return { ...state, answer: answer };
+    setAnswer: (state, action) => {
+      return { ...state, answer: action.payload };
+    },
+    setQuery: (state, action) => {
+      console.log(state, action);
+      //const { answer, query } = action.payload;
+      //return { ...state };
+      return {
+        ...state,
+        database: state.initialDatabase,
+        message: "Bättre lycka nästa gång!",
+        ask: false,
+        answer: null,
+      };
     },
   },
 });
