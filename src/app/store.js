@@ -1,19 +1,133 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const initialDatabase = {
-  query: "Bor den i vattnet?",
+  query: 'Bor den i vattnet?',
   yes: {
-    guess: "Gädda",
-  },
-  no: {
-    query: "Har den horn?",
+    query: 'Äter den träd?',
     yes: {
-      guess: "Älg",
+      guess: 'bäver'
     },
     no: {
-      guess: "Gris",
-    },
+      query: 'Bor den i havet?',
+      yes: {
+        query: 'Är den ett däggdjur?',
+        yes: {
+          guess: 'val'
+        },
+        no: {
+          query: 'Ser den ut som en orm?',
+          yes: {
+            guess: 'ål'
+          },
+          no: {
+            guess: 'haj'
+          }
+        }
+      },
+      no: {
+        guess: 'gädda'
+      }
+    }
   },
+  no: {
+    query: 'Har den horn?',
+    yes: {
+      query: 'Har den snabel?',
+      yes: {
+        guess: 'Elefant'
+      },
+      no: {
+        query: 'Kryper den?',
+        yes: {
+          guess: 'snigel'
+        },
+        no: {
+          query: 'Har den lång hals?',
+          yes: {
+            guess: 'giraff'
+          },
+          no: {
+            query: 'Har den korta ben?',
+            yes: {
+              guess: 'noshörning'
+            },
+            no: {
+              query: 'Bä?',
+              yes: {
+                guess: 'get'
+              },
+              no: {
+                guess: 'Älg'
+              }
+            }
+          }
+        }
+      }
+    },
+    no: {
+      query: 'Kryper den på marken?',
+      yes: {
+        query: 'Saknar den ben?',
+        yes: {
+          query: 'Kan den äta en mus?',
+          yes: {
+            guess: 'orm'
+          },
+          no: {
+            guess: 'mask'
+          }
+        },
+        no: {
+          query: 'Har den svans?',
+          yes: {
+            guess: 'krokodil'
+          },
+          no: {
+            guess: 'skalbagge'
+          }
+        }
+      },
+      no: {
+        query: 'Mu?',
+        yes: {
+          guess: 'kossa'
+        },
+        no: {
+          query: 'Får den valpar?',
+          yes: {
+            guess: 'hund'
+          },
+          no: {
+            query: 'Har den päls?',
+            yes: {
+              query: 'Är den prickig?',
+              yes: {
+                guess: 'leopard'
+              },
+              no: {
+                query: 'Är den randig?',
+                yes: {
+                  guess: 'lejon'
+                },
+                no: {
+                  guess: 'räv'
+                }
+              }
+            },
+            no: {
+              query: 'Är den mindre än 1 cm?',
+              yes: {
+                guess: 'lus'
+              },
+              no: {
+                guess: 'gris'
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 };
 
 export const gissaDjuretSlice = createSlice({
