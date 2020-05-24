@@ -57,6 +57,8 @@ export function GissaDjuret() {
                   query: newQuery,
                 })
               );
+              setNewAnswer("");
+              setNewQuery("");
             }}
           >
             Svara
