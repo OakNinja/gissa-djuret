@@ -50,12 +50,8 @@ export const gissaDjuretSlice = createSlice({
     },
     setQuery: (state, action) => {
       console.log(state, action);
-      const { answer, query } = action.payload;
-      const betterDatabase = updateDatabase(
-        state.initialDatabase,
-        answer,
-        query
-      );
+      const { guess, answer, query } = action.payload;
+      const betterDatabase = learn(state.initialDatabase, guess, answer, query);
       return {
         ...state,
         initialDatabase: betterDatabase,
@@ -68,7 +64,25 @@ export const gissaDjuretSlice = createSlice({
   },
 });
 
-function updateDatabase(database, answer, query) {
+export function learn(database, oldGuess, answer, newQuery) {
+  const { query, guess, yes, no } = database;
+  console.log(guess);
+  if (guess === oldGuess) {
+    return {
+      query: newQuery,
+      yes: {
+        guess: answer,
+      },
+      no: database,
+    };
+  }
+  if (query) {
+    return {
+      query,
+      yes: learn(yes, oldGuess, answer, newQuery),
+      no: learn(no, oldGuess, answer, newQuery),
+    };
+  }
   return database;
 }
 

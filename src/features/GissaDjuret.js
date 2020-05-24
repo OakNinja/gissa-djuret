@@ -55,6 +55,7 @@ export function GissaDjuret() {
             onClick={() => {
               dispatch(
                 gissaDjuretSlice.actions.setQuery({
+                  guess: guess,
                   answer: answer,
                   query: newQuery,
                 })

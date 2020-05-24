@@ -1,15 +1,40 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import store from './app/store';
-import App from './App';
+import { learn } from "./app/store";
 
-test('renders learn react link', () => {
-  const { getByText } = render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+test("not learns from unrelated answer", () => {
+  const database = { guess: "Fisk" };
+  expect(learn(database, "Torsk", "Gris", "Kan den cykla?")).toEqual(database);
+});
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+test("learns from answer", () => {
+  const database = { guess: "Fisk" };
+  expect(learn(database, "Fisk", "Svensk", "Kan den cykla?")).toEqual({
+    query: "Kan den cykla?",
+    yes: {
+      guess: "Svensk",
+    },
+    no: {
+      guess: "Fisk",
+    },
+  });
+});
+
+test("learns from answer in tree", () => {
+  const database = {
+    query: "Bor den i vatten?",
+    yes: { guess: "Fisk" },
+    no: { guess: "Björn" },
+  };
+  expect(learn(database, "Fisk", "Svensk", "Kan den cykla?")).toEqual({
+    query: "Bor den i vatten?",
+    yes: {
+      query: "Kan den cykla?",
+      yes: {
+        guess: "Svensk",
+      },
+      no: {
+        guess: "Fisk",
+      },
+    },
+    no: { guess: "Björn" },
+  });
 });
