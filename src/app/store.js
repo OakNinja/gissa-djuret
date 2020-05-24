@@ -66,7 +66,6 @@ export const gissaDjuretSlice = createSlice({
 
 export function learn(database, oldGuess, answer, newQuery) {
   const { query, guess, yes, no } = database;
-  console.log(guess);
   if (guess === oldGuess) {
     return {
       query: newQuery,

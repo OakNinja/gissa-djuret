@@ -14,9 +14,6 @@ export function GissaDjuret() {
   const guess = useSelector(selectGuess);
   const message = useSelector(selectMessage);
   const answer = useSelector(selectAnswer);
-  console.log(query);
-  console.log(guess);
-
   const ask = useSelector(selectAsk);
 
   const [newAnswer, setNewAnswer] = useState("");
